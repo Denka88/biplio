@@ -1,4 +1,4 @@
-package bip.online.biplio2023.model;
+package bip.online.biplio2023.entity;
 
 
 import jakarta.persistence.*;
@@ -6,24 +6,28 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "genres")
-public class Genre {
+@Table(name = "publishers")
+public class Publisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
 
-    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
+
+    @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL)
     private List<Book> books;
 
-    public Genre() {
+    public Publisher() {
     }
 
-    public Genre(Long id, String title, List<Book> books) {
+    public Publisher(Long id, String title, City city, List<Book> books) {
         this.id = id;
         this.title = title;
+        this.city = city;
         this.books = books;
     }
 
@@ -41,6 +45,14 @@ public class Genre {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public List<Book> getBooks() {

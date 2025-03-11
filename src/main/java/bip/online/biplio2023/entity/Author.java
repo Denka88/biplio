@@ -1,4 +1,4 @@
-package bip.online.biplio2023.model;
+package bip.online.biplio2023.entity;
 
 import jakarta.persistence.*;
 
