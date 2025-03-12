@@ -3,10 +3,12 @@ package bip.online.biplio2023.impl;
 import bip.online.biplio2023.entity.Book;
 import bip.online.biplio2023.repo.BookRepo;
 import bip.online.biplio2023.service.BookService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class BookServiceImpl implements BookService {
 
     private final BookRepo bookRepo;

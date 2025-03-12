@@ -1,6 +1,7 @@
 package bip.online.biplio2023.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -14,10 +15,12 @@ public class Publisher {
     private Long id;
     private String title;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL)
     private List<Book> books;
 

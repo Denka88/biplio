@@ -40,6 +40,6 @@ public class AuthorController {
     public ResponseEntity<BaseResponse> update(@RequestBody Author author) {
         authorService.update(author);
         return ResponseEntity.ok(
-                new BaseResponse(true, "Автор сохранен"));
+                new BaseResponse(true, "Автор обновлен"));
     }
 }

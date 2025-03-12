@@ -3,10 +3,12 @@ package bip.online.biplio2023.impl;
 import bip.online.biplio2023.entity.Genre;
 import bip.online.biplio2023.repo.GenreRepo;
 import bip.online.biplio2023.service.GenreService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class GenreServiceImpl implements GenreService {
 
     private final GenreRepo genreRepo;

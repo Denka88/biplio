@@ -1,6 +1,7 @@
 package bip.online.biplio2023.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class Genre {
 
     private String title;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
     private List<Book> books;
 

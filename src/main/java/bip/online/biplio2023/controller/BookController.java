@@ -40,6 +40,6 @@ public class BookController {
     public ResponseEntity<BaseResponse> update(@RequestBody Book book) {
         bookService.update(book);
         return ResponseEntity.ok(
-                new BaseResponse(true, "Книга сохранена"));
+                new BaseResponse(true, "Книга обновлен"));
     }
 }

@@ -1,6 +1,7 @@
 package bip.online.biplio2023.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity

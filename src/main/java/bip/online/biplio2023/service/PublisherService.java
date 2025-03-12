@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface PublisherService {
 
-    List<Publisher> findAllPublisher();
+    List<Publisher> findAllPublishers();
 
-    Optional<Publisher> findPublisherById(int id);
+    Optional<Publisher> findById(Long id);
 
     Publisher save(Publisher data);
 
