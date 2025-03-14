@@ -24,7 +24,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public Optional<City> findById(Long id) {
-        return cityRepo.findById(Math.toIntExact(id));
+        return cityRepo.findById(id);
     }
 
     @Override
@@ -35,5 +35,10 @@ public class CityServiceImpl implements CityService {
     @Override
     public void update(City data) {
         cityRepo.save(data);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        cityRepo.deleteById(id);
     }
 }

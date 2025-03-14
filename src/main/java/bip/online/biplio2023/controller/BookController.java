@@ -42,4 +42,11 @@ public class BookController {
         return ResponseEntity.ok(
                 new BaseResponse(true, "Книга обновлен"));
     }
+
+    @DeleteMapping
+    public ResponseEntity<BaseResponse> delete(@RequestParam Long id) {
+        bookService.deleteById(id);
+        return ResponseEntity.ok(
+                new BaseResponse(true, "Книга удалена"));
+    }
 }

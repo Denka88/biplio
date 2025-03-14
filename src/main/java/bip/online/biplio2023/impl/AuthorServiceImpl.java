@@ -24,7 +24,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Optional<Author> findById(Long id) {
-        return authorRepo.findById(Math.toIntExact(id));
+        return authorRepo.findById(id);
     }
 
     @Override
@@ -35,5 +35,10 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void update(Author author) {
         authorRepo.save(author);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        authorRepo.deleteById(id);
     }
 }

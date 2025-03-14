@@ -44,4 +44,11 @@ public class CityController {
         return ResponseEntity.ok(
                 new BaseResponse(true, "Город обновлен"));
     }
+
+    @DeleteMapping
+    public ResponseEntity<BaseResponse> delete(@RequestParam Long id) {
+        cityService.deleteById(id);
+        return ResponseEntity.ok(
+                new BaseResponse(true, "Город удален"));
+    }
 }

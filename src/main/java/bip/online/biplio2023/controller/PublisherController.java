@@ -43,4 +43,11 @@ public class PublisherController {
         return ResponseEntity.ok(
                 new BaseResponse(true, "Издатель обновлен"));
     }
+
+    @DeleteMapping
+    public ResponseEntity<BaseResponse> delete(@RequestParam Long id) {
+        publisherService.deleteById(id);
+        return ResponseEntity.ok(
+                new BaseResponse(true, "Издатель удален"));
+    }
 }

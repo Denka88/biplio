@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Optional<Book> findById(Long id) {
-        return bookRepo.findById(Math.toIntExact(id));
+        return bookRepo.findById(id);
     }
 
     @Override
@@ -35,5 +35,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public void update(Book data) {
         bookRepo.save(data);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        bookRepo.deleteById(id);
     }
 }

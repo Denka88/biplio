@@ -24,7 +24,7 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public Optional<Genre> findById(Long id) {
-        return genreRepo.findById(Math.toIntExact(id));
+        return genreRepo.findById(id);
     }
 
     @Override
@@ -35,5 +35,10 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public void update(Genre data) {
         genreRepo.save(data);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        genreRepo.deleteById(id);
     }
 }

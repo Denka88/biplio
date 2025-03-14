@@ -15,4 +15,5 @@ public interface GenreService {
 
     void update(Genre data);
 
+    void deleteById(Long id);
 }
