@@ -42,10 +42,10 @@ public class AuthorController {
         return ResponseEntity.ok(
                 new BaseResponse(true, "Автор обновлен"));
     }
-
+    
     @DeleteMapping
-    public ResponseEntity<BaseResponse> delete(@RequestParam Long id) {
-        authorService.deleteById(id);
+    public ResponseEntity<BaseResponse> delete(@RequestBody Author author) {
+        authorService.delete(author);
         return ResponseEntity.ok(
                 new BaseResponse(true, "Автор удален"));
     }

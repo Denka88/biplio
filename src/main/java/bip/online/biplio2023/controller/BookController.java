@@ -1,5 +1,6 @@
 package bip.online.biplio2023.controller;
 
+import bip.online.biplio2023.entity.Author;
 import bip.online.biplio2023.entity.Book;
 import bip.online.biplio2023.response.BaseResponse;
 import bip.online.biplio2023.response.DataResponse;
@@ -44,8 +45,8 @@ public class BookController {
     }
 
     @DeleteMapping
-    public ResponseEntity<BaseResponse> delete(@RequestParam Long id) {
-        bookService.deleteById(id);
+    public ResponseEntity<BaseResponse> delete(@RequestBody Book book) {
+        bookService.delete(book);
         return ResponseEntity.ok(
                 new BaseResponse(true, "Книга удалена"));
     }

@@ -46,8 +46,8 @@ public class GenreController {
     }
 
     @DeleteMapping
-    public ResponseEntity<BaseResponse> delete(@RequestParam Long id) {
-        genreService.deleteById(id);
+    public ResponseEntity<BaseResponse> delete(@RequestBody Genre genre) {
+        genreService.delete(genre);
         return ResponseEntity.ok(
                 new BaseResponse(true, "Жанр удален"));
     }
