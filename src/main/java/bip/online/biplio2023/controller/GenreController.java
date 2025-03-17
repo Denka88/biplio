@@ -8,8 +8,6 @@ import bip.online.biplio2023.service.GenreService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/v1/genre")
 public class GenreController {
@@ -46,8 +44,8 @@ public class GenreController {
     }
 
     @DeleteMapping
-    public ResponseEntity<BaseResponse> delete(@RequestBody Genre genre) {
-        genreService.delete(genre);
+    public ResponseEntity<BaseResponse> delete(@RequestParam Long id) {
+        genreService.deleteById(id);
         return ResponseEntity.ok(
                 new BaseResponse(true, "Жанр удален"));
     }

@@ -38,8 +38,8 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
-    public void delete(Publisher data) {
-        publisherRepo.delete(data);
+    public void deleteById(Long id) {
+        publisherRepo.deleteById(id);
     }
 
 

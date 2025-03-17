@@ -15,5 +15,5 @@ public interface PublisherService {
 
     void update(Publisher data);
 
-    void delete(Publisher data);
+    void deleteById(Long id);
 }

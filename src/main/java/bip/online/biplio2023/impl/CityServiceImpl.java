@@ -38,8 +38,8 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public void delete(City data) {
-        cityRepo.delete(data);
+    public void deleteById(Long id) {
+        cityRepo.deleteById(id);
     }
 
 

@@ -46,8 +46,8 @@ public class CityController {
     }
 
     @DeleteMapping
-    public ResponseEntity<BaseResponse> delete(@RequestBody City city) {
-        cityService.delete(city);
+    public ResponseEntity<BaseResponse> delete(@RequestParam Long id) {
+        cityService.deleteById(id);
         return ResponseEntity.ok(
                 new BaseResponse(true, "Город удален"));
     }

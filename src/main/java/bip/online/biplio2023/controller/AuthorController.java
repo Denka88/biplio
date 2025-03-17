@@ -44,8 +44,8 @@ public class AuthorController {
     }
     
     @DeleteMapping
-    public ResponseEntity<BaseResponse> delete(@RequestBody Author author) {
-        authorService.delete(author);
+    public ResponseEntity<BaseResponse> delete(@RequestParam Long id) {
+        authorService.deleteById(id);
         return ResponseEntity.ok(
                 new BaseResponse(true, "Автор удален"));
     }
