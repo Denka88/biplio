@@ -26,7 +26,7 @@ public class PublisherController {
     }
 
     @GetMapping
-    public ResponseEntity<DataResponse<Publisher>> by_id(@RequestParam Long id) {
+    public ResponseEntity<DataResponse<Publisher>> by_id(@RequestBody Long id) {
         return ResponseEntity.ok(
                 new DataResponse<Publisher>(true, "Найден следующий издатель", publisherService.findById(id).orElseThrow()));
     }
@@ -45,7 +45,7 @@ public class PublisherController {
     }
 
     @DeleteMapping
-    public ResponseEntity<BaseResponse> delete(@RequestParam Long id) {
+    public ResponseEntity<BaseResponse> delete(@RequestBody Long id) {
         publisherService.deleteById(id);
         return ResponseEntity.ok(
                 new BaseResponse(true, "Издатель удален"));
