@@ -53,4 +53,9 @@ public class City {
     public void setPublisher(List<Publisher> publisher) {
         this.publisher = publisher;
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }
