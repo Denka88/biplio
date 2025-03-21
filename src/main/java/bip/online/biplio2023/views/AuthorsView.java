@@ -5,10 +5,12 @@ import bip.online.biplio2023.entity.Author;
 import bip.online.biplio2023.service.AuthorService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -21,15 +23,21 @@ public class AuthorsView extends VerticalLayout {
 
     private final AuthorService authorService;
     private final Grid<Author> grid;
+    private final Button addButton;
+    private final FormLayout formLayout;
 
     public AuthorsView(AuthorService authorService) {
         this.authorService = authorService;
+        this.formLayout = new FormLayout();
+        this.addButton = new Button("Добавить");
         this.grid = new Grid<>(Author.class, false);
         
         setupGrid();
         updateGrid();
-        
-        add(grid);
+
+        setupAddAuthor();
+
+        add(grid, addButton, formLayout);
     }
 
     private void setupGrid() {
@@ -55,4 +63,20 @@ public class AuthorsView extends VerticalLayout {
         grid.setItems(authors);
     }
 
+    private void setupAddAuthor(){
+            TextField nameField = new TextField("Имя");
+            TextField lastNameField = new TextField("Фамилия");
+            TextField surNameField = new TextField("Отчество");
+
+            formLayout.add(nameField, lastNameField, surNameField);
+
+            Author author = new Author();
+            addButton.addClickListener(event -> {
+                author.setName(nameField.getValue());
+                author.setLastName(lastNameField.getValue());
+                author.setSurName(surNameField.getValue());
+                authorService.save(author);
+            });
+            updateGrid();
+    }
 }
