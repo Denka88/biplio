@@ -1,5 +1,6 @@
 package bip.online.biplio2023.views;
 
+import bip.online.biplio2023.entity.Author;
 import bip.online.biplio2023.entity.City;
 import bip.online.biplio2023.service.CityService;
 import com.vaadin.flow.component.button.Button;
@@ -28,7 +29,7 @@ public class CitiesView extends VerticalLayout {
     public CitiesView(CityService cityService) {
         this.cityService = cityService;
         this.grid = new Grid<>(City.class, false);
-        this.showFormButton = new Button("Показать форму", new Icon(VaadinIcon.PLUS));
+        this.showFormButton = new Button("Показать форму", new Icon(VaadinIcon.ANGLE_RIGHT));
         this.formLayout = new FormLayout();
 
         setupGrid();
@@ -41,9 +42,11 @@ public class CitiesView extends VerticalLayout {
         showFormButton.addClickListener(e -> {
             formLayout.setVisible(!formLayout.isVisible());
             showFormButton.setText(formLayout.isVisible() ? "Скрыть форму" : "Показать форму");
+            showFormButton.setIcon(formLayout.isVisible() ? new Icon(VaadinIcon.ANGLE_DOWN) : new Icon(VaadinIcon.ANGLE_RIGHT));
         });
 
-        add(grid, formLayout, showFormButton);
+        add(grid, showFormButton, formLayout);
+
     }
 
     private void setupGrid(){
@@ -67,33 +70,52 @@ public class CitiesView extends VerticalLayout {
     }
 
     private void setupAddCities(){
+        TextField id = new TextField("ID");
         TextField title = new TextField("Название города");
 
+        id.setReadOnly(true);
+        
+        id.setWidth("100%");
         title.setWidth("100%");
 
         formLayout.setWidth("400px");
         formLayout.setHeight("auto");
 
-        formLayout.add(title);
-
         Button saveButton = new Button("Сохранить", e -> {
-            City city = new City();
-            city.setTitle(title.getValue());
-            cityService.save(city);
+            
+            if(!id.isEmpty()){
+                City updateCity = cityService.findById(Long.valueOf(id.getValue())).orElse(null);
+                updateCity.setTitle(title.getValue());
+                cityService.update(updateCity);
+            }
+            else {
+                City city = new City();
+                city.setTitle(title.getValue());
+                cityService.save(city);
+            }
 
             updateGrid();
 
+            id.clear();
             title.clear();
         });
 
         Button resetButton = new Button("Сбросить", e -> {
+            id.clear();
             title.clear();
         });
 
         grid.addCellFocusListener(e -> {
+            id.setValue(String.valueOf(e.getItem().map(City::getId).orElse(null)));
             title.setValue(e.getItem().map(City::getTitle).orElse("Не доступно"));
         });
 
-        formLayout.add(saveButton, resetButton);
+        formLayout.add(
+                id,
+                title, 
+                
+                saveButton,
+                resetButton
+        );
     }
 }

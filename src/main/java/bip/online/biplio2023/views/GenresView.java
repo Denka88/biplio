@@ -28,7 +28,7 @@ public class GenresView extends VerticalLayout {
     public GenresView(GenreService genreService) {
         this.genreService = genreService;
         this.grid = new Grid<>(Genre.class, false);
-        this.showFormButton = new Button("Показать форму", new Icon(VaadinIcon.PLUS));
+        this.showFormButton = new Button("Показать форму", new Icon(VaadinIcon.ANGLE_RIGHT));
         this.formLayout = new FormLayout();
 
         setupGrid();
@@ -41,9 +41,11 @@ public class GenresView extends VerticalLayout {
         showFormButton.addClickListener(e -> {
             formLayout.setVisible(!formLayout.isVisible());
             showFormButton.setText(formLayout.isVisible() ? "Скрыть форму" : "Показать форму");
+            showFormButton.setIcon(formLayout.isVisible() ? new Icon(VaadinIcon.ANGLE_DOWN) : new Icon(VaadinIcon.ANGLE_RIGHT));
         });
-        
-        add(grid, formLayout, showFormButton);
+
+        add(grid, showFormButton, formLayout);
+
     }
 
     private void setupGrid(){
@@ -68,33 +70,52 @@ public class GenresView extends VerticalLayout {
     }
 
     private void setupAddGenres(){
+        TextField id = new TextField("ID");
         TextField title = new TextField("Название жанра");
 
+        id.setReadOnly(true);
+        
+        id.setWidth("100%");
         title.setWidth("100%");
 
         formLayout.setWidth("400px");
         formLayout.setHeight("auto");
 
-        formLayout.add(title);
-
         Button saveButton = new Button("Сохранить", e -> {
-            Genre genre = new Genre();
-            genre.setTitle(title.getValue());
-            genreService.save(genre);
+            
+            if (!id.isEmpty()) {
+                Genre updateGenre = genreService.findById(Long.valueOf(id.getValue())).orElse(null);
+                updateGenre.setTitle(title.getValue());
+                genreService.update(updateGenre);
+            }
+            else {
+                Genre genre = new Genre();
+                genre.setTitle(title.getValue());
+                genreService.save(genre);
+            }
 
             updateGrid();
 
+            id.clear();
             title.clear();
         });
 
         Button resetButton = new Button("Сбросить", e -> {
+            id.clear();
             title.clear();
         });
 
         grid.addCellFocusListener(e -> {
+            id.setValue(String.valueOf(e.getItem().map(Genre::getId).orElse(null)));
             title.setValue(e.getItem().map(Genre::getTitle).orElse("Не доступно"));
         });
 
-        formLayout.add(saveButton, resetButton);
+        formLayout.add(
+                id,
+                title,
+        
+                saveButton,
+                resetButton
+        );
     }
 }

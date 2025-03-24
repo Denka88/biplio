@@ -30,7 +30,7 @@ public class AuthorsView extends VerticalLayout {
     public AuthorsView(AuthorService authorService) {
         this.authorService = authorService;
         this.formLayout = new FormLayout();
-        this.showFormButton = new Button("Показать форму", new Icon(VaadinIcon.PLUS));
+        this.showFormButton = new Button("Показать форму", new Icon(VaadinIcon.ANGLE_RIGHT));
         this.grid = new Grid<>(Author.class, false);
         
         setupGrid();
@@ -43,9 +43,11 @@ public class AuthorsView extends VerticalLayout {
         showFormButton.addClickListener(e -> {
             formLayout.setVisible(!formLayout.isVisible());
             showFormButton.setText(formLayout.isVisible() ? "Скрыть форму" : "Показать форму");
+            showFormButton.setIcon(formLayout.isVisible() ? new Icon(VaadinIcon.ANGLE_DOWN) : new Icon(VaadinIcon.ANGLE_RIGHT));
         });
 
-        add(grid, formLayout, showFormButton);
+        add(grid, showFormButton, formLayout);
+
     }
 
     private void setupGrid() {
@@ -66,9 +68,6 @@ public class AuthorsView extends VerticalLayout {
                     });
                     button.setIcon(new Icon(VaadinIcon.TRASH));
                 })).setHeader("Действие");
-        
-        
-        
     }
 
     private List<Author> updateGrid() {
@@ -79,46 +78,71 @@ public class AuthorsView extends VerticalLayout {
     }
 
     private void setupAddAuthor(){
-        TextField nameField = new TextField("Имя");
-        TextField lastNameField = new TextField("Отчество");
-        TextField surNameField = new TextField("Фамилия");
+        TextField id = new TextField("ID");
+        TextField name = new TextField("Имя");
+        TextField lastName = new TextField("Отчество");
+        TextField surname = new TextField("Фамилия");
         
-        nameField.setWidth("100%");
-        lastNameField.setWidth("100%");
-        surNameField.setWidth("100%");
+        id.setReadOnly(true);
+        
+        id.setWidth("100%");
+        name.setWidth("100%");
+        lastName.setWidth("100%");
+        surname.setWidth("100%");
         
         formLayout.setWidth("400px");
         formLayout.setHeight("auto");
-        
-        formLayout.add(nameField, lastNameField, surNameField);
 
-        Button saveButton = new Button("Сохранить", e -> {
-            Author author = new Author();
-            author.setName(nameField.getValue());
-            author.setLastName(lastNameField.getValue());
-            author.setSurName(surNameField.getValue());
-            authorService.save(author);
+        Button saveButton = new Button("Сохранить", e -> {            
+            if(!id.isEmpty()){
+                Author updateAuthor = authorService.findById(Long.valueOf(id.getValue())).orElse(null);
+                updateAuthor.setName(name.getValue());
+                updateAuthor.setLastName(lastName.getValue());
+                updateAuthor.setSurName(surname.getValue());
+                
+                authorService.update(updateAuthor);
+            }
+            else {
+                Author author = new Author();
+                author.setName(name.getValue());
+                author.setLastName(lastName.getValue());
+                author.setSurName(surname.getValue());
+                
+                authorService.save(author);
+            }
+            
 
             updateGrid();
             
-            nameField.clear();
-            lastNameField.clear();
-            surNameField.clear();
+            id.clear();
+            name.clear();
+            lastName.clear();
+            surname.clear();
         });
         
         Button resetButton = new Button("Сбросить", e -> {
-            nameField.clear();
-            lastNameField.clear();
-            surNameField.clear();
+            id.clear();
+            name.clear();
+            lastName.clear();
+            surname.clear();
         });
 
         grid.addCellFocusListener(e -> {
-            nameField.setValue(e.getItem().map(Author::getName).orElse("Не доступно"));
-            lastNameField.setValue(e.getItem().map(Author::getLastName).orElse("Не доступно"));
-            surNameField.setValue(e.getItem().map(Author::getSurName).orElse("Не доступно"));
+            id.setValue(String.valueOf(e.getItem().map(Author::getId).orElse(null)));
+            name.setValue(e.getItem().map(Author::getName).orElse("Не доступно"));
+            lastName.setValue(e.getItem().map(Author::getLastName).orElse("Не доступно"));
+            surname.setValue(e.getItem().map(Author::getSurName).orElse("Не доступно"));
             }
         );
 
-        formLayout.add(saveButton, resetButton);
+        formLayout.add(
+                id,
+                name,
+                lastName,
+                surname,
+                
+                saveButton,
+                resetButton
+        );
     }
 }
