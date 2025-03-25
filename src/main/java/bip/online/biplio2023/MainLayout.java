@@ -16,11 +16,12 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 
 @Layout
-@AnonymousAllowed
+@PermitAll
 public class MainLayout extends AppLayout {
 
     public MainLayout() {

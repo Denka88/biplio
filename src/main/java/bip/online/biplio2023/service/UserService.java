@@ -1,5 +1,6 @@
 package bip.online.biplio2023.service;
 
+import bip.online.biplio2023.dto.UserDto;
 import bip.online.biplio2023.entity.User;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface UserService {
 
     User findByUsername(String username);
 
-    User save(User data);
+    User save(UserDto data);
 
     void update(User data);
 

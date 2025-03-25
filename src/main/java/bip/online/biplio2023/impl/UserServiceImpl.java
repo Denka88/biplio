@@ -1,10 +1,16 @@
 package bip.online.biplio2023.impl;
 
+import bip.online.biplio2023.dto.UserDto;
+import bip.online.biplio2023.entity.Role;
 import bip.online.biplio2023.entity.User;
 import bip.online.biplio2023.repo.UserRepo;
 import bip.online.biplio2023.service.UserService;
+import jakarta.transaction.UserTransaction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +18,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public UserServiceImpl(UserRepo userRepo) {
         this.userRepo = userRepo;
@@ -33,9 +40,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User data) {
-        return userRepo.save(data);
+    public User save(UserDto data) {
+        
+        User user = new User();
+        user.setUsername(data.getUsername());
+        user.setPassword(passwordEncoder.encode(data.getPassword()));
+        user.setName(data.getName());
+        user.setSurname(data.getSurname());
+        user.setRoles(Collections.singleton(Role.USER));
+        return userRepo.save(user);
     }
+
 
     @Override
     public void update(User data) {

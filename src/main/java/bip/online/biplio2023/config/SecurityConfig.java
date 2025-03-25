@@ -1,5 +1,7 @@
 package bip.online.biplio2023.config;
 
+import bip.online.biplio2023.views.LoginView;
+import com.vaadin.flow.spring.security.VaadinWebSecurity;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,9 +11,17 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig extends VaadinWebSecurity {
+    
+    
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        super.configure(http);
+        setLoginView(http, LoginView.class);
+    }
+    
 
-    @Bean
+    /*@Bean
     BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -20,11 +30,11 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("")
+                        .requestMatchers("/login", "/")
                         .permitAll()
-                        .requestMatchers("")
+                        .requestMatchers("/authors", "/books", "/cities", "/genres", "/publishers")
                         .authenticated()
-                        .requestMatchers("")
+                        .requestMatchers("/users")
                         .hasRole("ADMIN")
                 )
                 .formLogin(form -> form
@@ -38,6 +48,6 @@ public class SecurityConfig {
                         .permitAll()
                 );
         return http.build();
-    }
+    }*/
 
 }
