@@ -2,10 +2,7 @@ package bip.online.biplio2023.views;
 
 import com.vaadin.flow.component.html.Main;
 import com.vaadin.flow.component.login.LoginForm;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
@@ -22,7 +19,9 @@ public class LoginView extends Main implements BeforeEnterObserver {
         setSizeFull();
         login = new LoginForm();
         login.setAction("login");
-        add(login);
+
+        RouterLink registerLink = new RouterLink("Зарегистрироваться", RegistrationView.class);
+        add(login, registerLink);
     }
 
     @Override

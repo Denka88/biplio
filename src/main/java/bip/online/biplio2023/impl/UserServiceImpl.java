@@ -18,10 +18,11 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepo userRepo;
-    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepo userRepo) {
+    public UserServiceImpl(UserRepo userRepo, BCryptPasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override

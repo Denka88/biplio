@@ -15,11 +15,13 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 
 @Route("authors")
 @PageTitle("Авторы")
+@PermitAll
 public class AuthorsView extends VerticalLayout {
 
     private final AuthorService authorService;
@@ -84,6 +86,7 @@ public class AuthorsView extends VerticalLayout {
         TextField surname = new TextField("Фамилия");
         
         id.setReadOnly(true);
+        id.setVisible(false);
         
         id.setWidth("100%");
         name.setWidth("100%");

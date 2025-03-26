@@ -8,46 +8,30 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends VaadinWebSecurity {
-    
-    
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
-        setLoginView(http, LoginView.class);
-    }
-    
 
-    /*@Bean
-    BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(auth -> auth
+                .requestMatchers(
+                        new AntPathRequestMatcher("/register"),
+                        new AntPathRequestMatcher("/login")
+                ).permitAll()
+        );
+
+        super.configure(http);
+
+        setLoginView(http, LoginView.class);
+
+        return http.build();
     }
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/login", "/")
-                        .permitAll()
-                        .requestMatchers("/authors", "/books", "/cities", "/genres", "/publishers")
-                        .authenticated()
-                        .requestMatchers("/users")
-                        .hasRole("ADMIN")
-                )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/")
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
-                        .permitAll()
-                );
-        return http.build();
-    }*/
-
+    BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

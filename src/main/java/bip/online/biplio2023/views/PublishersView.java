@@ -16,11 +16,14 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
+import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 
 @Route("publishers")
 @PageTitle("Издатели")
+@PermitAll
 public class PublishersView extends VerticalLayout {
     
     private final PublisherService publisherService;
@@ -87,6 +90,7 @@ public class PublishersView extends VerticalLayout {
         citiesBox.setItemLabelGenerator(City::getTitle);
 
         id.setReadOnly(true);
+        id.setVisible(false);
         
         id.setWidth("100%");
         title.setWidth("100%");

@@ -21,7 +21,7 @@ import jakarta.annotation.security.PermitAll;
 import java.util.List;
 
 @Layout
-@PermitAll
+@AnonymousAllowed
 public class MainLayout extends AppLayout {
 
     public MainLayout() {

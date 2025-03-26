@@ -20,11 +20,13 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 
 @Route("books")
 @PageTitle("Книги")
+@PermitAll
 public class BooksView extends VerticalLayout {
     
     private final BookService bookService;
@@ -107,6 +109,7 @@ public class BooksView extends VerticalLayout {
         publisherBox.setItemLabelGenerator(Publisher::getTitle);
         
         id.setReadOnly(true);
+        id.setVisible(false);
         
         id.setWidth("100%");
         year.setWidth("100%");

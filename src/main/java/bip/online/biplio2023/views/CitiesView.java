@@ -14,11 +14,13 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 
 @Route("cities")
 @PageTitle("Города")
+@PermitAll
 public class CitiesView extends VerticalLayout {
     
     private final CityService cityService;
@@ -74,6 +76,7 @@ public class CitiesView extends VerticalLayout {
         TextField title = new TextField("Название города");
 
         id.setReadOnly(true);
+        id.setVisible(false);
         
         id.setWidth("100%");
         title.setWidth("100%");
