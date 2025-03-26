@@ -1,5 +1,6 @@
 package bip.online.biplio2023;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
@@ -38,7 +39,7 @@ public class MainLayout extends AppLayout {
         navbarRight.getStyle().set("margin-left", "auto");
 
         Button logout = new Button("Выйти", e -> {
-            
+            UI.getCurrent().navigate("logout");
         });
         logout.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
         logout.getStyle().set("margin-right", "5px");

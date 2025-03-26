@@ -62,4 +62,9 @@ public class UserServiceImpl implements UserService {
     public void delete(Long id) {
         userRepo.deleteById(id);
     }
+
+    @Override
+    public boolean usernameIsAvailable(String username) {
+        return !userRepo.existsByUsername(username);
+    }
 }

@@ -1,6 +1,8 @@
 package bip.online.biplio2023.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import java.util.Set;
 
@@ -16,6 +18,7 @@ public class User {
     @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
+    @Cascade(CascadeType.ALL)
     private Set<Role> roles;
 
     private String password;

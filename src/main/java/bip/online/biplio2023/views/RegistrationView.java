@@ -82,10 +82,17 @@ public class RegistrationView extends VerticalLayout {
         registerButton.addClickListener(e -> {
             UserDto data = new UserDto();
             if (binder.writeBeanIfValid(data)) {
-                userService.save(data);
-                Notification.show("Регистрация успешна для: " + data.getUsername(),
-                        3000, Notification.Position.MIDDLE);
-                getUI().ifPresent(ui -> ui.navigate("/login"));
+                if(userService.usernameIsAvailable(data.getUsername())){
+                    userService.save(data);
+                    Notification.show("Регистрация успешна для: " + data.getUsername(),
+                            3000, Notification.Position.MIDDLE);
+                    getUI().ifPresent(ui -> ui.navigate("/login"));
+                }
+                else {
+                    Notification.show("Логин занят: " + data.getUsername(),
+                            3000, Notification.Position.MIDDLE);
+                }
+                
             }
         });
         

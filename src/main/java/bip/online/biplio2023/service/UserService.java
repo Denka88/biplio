@@ -19,4 +19,6 @@ public interface UserService {
     void update(User data);
 
     void delete(Long id);
+    
+    boolean usernameIsAvailable(String username);
 }

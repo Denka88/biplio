@@ -15,7 +15,7 @@ public class LoginView extends Main implements BeforeEnterObserver {
 
     public LoginView() {
         addClassNames(LumoUtility.Display.FLEX, LumoUtility.JustifyContent.CENTER,
-                LumoUtility.AlignItems.CENTER);
+                LumoUtility.AlignItems.CENTER, LumoUtility.FlexDirection.COLUMN);
         setSizeFull();
         login = new LoginForm();
         login.setAction("login");
