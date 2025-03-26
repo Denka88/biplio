@@ -2,11 +2,10 @@ package bip.online.biplio2023;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.html.Footer;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.icon.SvgIcon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -14,22 +13,20 @@ import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.Layout;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
-import com.vaadin.flow.server.menu.MenuConfiguration;
-import com.vaadin.flow.server.menu.MenuEntry;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import jakarta.annotation.security.PermitAll;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.List;
 
 @Layout
 @PermitAll
 public class MainLayout extends AppLayout {
+
+    private static final Logger log = LoggerFactory.getLogger(MainLayout.class);
 
     public MainLayout() {
         DrawerToggle toggle = new DrawerToggle();
@@ -40,7 +37,13 @@ public class MainLayout extends AppLayout {
 
         HorizontalLayout navbarRight = new HorizontalLayout();
         navbarRight.setAlignItems(FlexComponent.Alignment.CENTER);
-        navbarRight.getStyle().set("margin-left", "auto"); 
+        navbarRight.getStyle().set("margin-left", "auto");
+
+        Button logout = new Button("Выйти", e -> {
+            
+        });
+        logout.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
+        logout.getStyle().set("margin-right", "5px");
         
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()
@@ -54,6 +57,8 @@ public class MainLayout extends AppLayout {
 
             navbarRight.add(username);
         }
+        
+        navbarRight.add(logout);
 
         SideNav nav = getSideNav();
         Scroller scroller = new Scroller(nav);
