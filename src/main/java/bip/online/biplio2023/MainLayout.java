@@ -26,8 +26,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 @PermitAll
 public class MainLayout extends AppLayout {
 
-    private static final Logger log = LoggerFactory.getLogger(MainLayout.class);
-
     public MainLayout() {
         DrawerToggle toggle = new DrawerToggle();
 
