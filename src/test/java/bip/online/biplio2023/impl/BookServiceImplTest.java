@@ -26,7 +26,7 @@ class BookServiceImplTest {
             ""
     })
     void findAllBooks() {
-        Book book1 = new Book(1L, );
+        Book book1 = new Book();
         Book book2 = new Book();
         
     }
