@@ -28,6 +28,12 @@ public class Publisher {
     public Publisher() {
     }
 
+    public Publisher(Long id, String title, City city) {
+        this.id = id;
+        this.title = title;
+        this.city = city;
+    }
+
     public Publisher(Long id, String title, City city, List<Book> books) {
         this.id = id;
         this.title = title;

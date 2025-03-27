@@ -24,6 +24,11 @@ public class City {
 
     }
 
+    public City(Long id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public City(Long id, String title, List<Publisher> publisher) {
         this.id = id;
         this.title = title;

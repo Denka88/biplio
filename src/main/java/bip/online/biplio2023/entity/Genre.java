@@ -24,6 +24,11 @@ public class Genre {
     public Genre() {
     }
 
+    public Genre(Long id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public Genre(Long id, String title, List<Book> books) {
         this.id = id;
         this.title = title;
