@@ -139,7 +139,8 @@ class GenreServiceImplTest {
         genreService.save(genre);
         
         genreService.deleteById(id);
-        
-        verify(genreRepo, times(1)).deleteById(id);
+
+        assertFalse(genreRepo.existsById(id));
+
     }
 }
