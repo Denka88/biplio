@@ -4,19 +4,25 @@ package bip.online.biplio2023.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Locale;
 
+@Schema(description = "Сущность издателя")
 @Entity
 @Table(name = "publishers")
 public class Publisher {
 
+    @Schema(description = "Уникальный идентификатор издателя", example = "63", accessMode = Schema.AccessMode.READ_ONLY)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Schema(description = "Навзание издателя")
     private String title;
 
+    @Schema(description = "Город издателя")
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;

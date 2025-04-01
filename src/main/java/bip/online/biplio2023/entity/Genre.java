@@ -3,18 +3,22 @@ package bip.online.biplio2023.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.util.List;
 
+@Schema(description = "Сущность жанра")
 @Entity
 @Table(name = "genres")
 public class Genre {
 
+    @Schema(description = "Уникальный идентификатор жанра", example = "5156", accessMode = Schema.AccessMode.READ_ONLY)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Schema(description = "Название жанра")
     private String title;
 
     @JsonIgnore

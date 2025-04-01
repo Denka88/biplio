@@ -2,20 +2,27 @@ package bip.online.biplio2023.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.util.List;
 
+
+@Schema(description = "Сущность автора")
 @Entity
 @Table(name = "authors")
 public class Author {
 
+    @Schema(description = "Уникальный идентификатор автора", example = "43", accessMode = Schema.AccessMode.READ_ONLY)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Schema(description = "Отчество автора", example = "Иванович")
     private String lastName;
+    @Schema(description = "Имя автора", example = "Иван")
     private String name;
+    @Schema(description = "Фамилия автора", example = "Иванов")
     private String surName;
 
     @JsonIgnore

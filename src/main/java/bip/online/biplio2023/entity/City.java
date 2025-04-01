@@ -2,18 +2,22 @@ package bip.online.biplio2023.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.util.List;
 
+@Schema(description = "Сущность города")
 @Entity
 @Table(name = "cities")
 public class City {
 
+    @Schema(description = "Уникальный идентификатор города", example = "53453", accessMode = Schema.AccessMode.READ_ONLY)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Schema(description = "Название города")
     private String title;
 
     @JsonIgnore
